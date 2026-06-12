@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patiphon In-ngam — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1117;
+    --bg-soft:#161B22;
+    --line:#2A313C;
+    --text:#C9D1D9;
+    --muted:#6E7681;
+    --accent:#7EE787;   /* terminal green - dev/it */
+    --accent2:#FFA657;  /* warm orange - graphic */
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+  }
+  ::selection{background:var(--accent);color:#0D1117;}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 6vw;
+    background:rgba(13,17,23,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{font-family:var(--mono); font-weight:700; font-size:1.05rem; letter-spacing:0.5px;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex; gap:28px; font-family:var(--mono); font-size:0.85rem;}
+  .nav-links a{color:var(--muted); text-decoration:none; transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+  @media (max-width:640px){ .nav-links{gap:14px; font-size:0.75rem;} }
+
+  section{padding:100px 6vw; max-width:1100px; margin:0 auto;}
+
+  /* ===== HERO / TERMINAL ===== */
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding-top:80px;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:center;}
+  @media (max-width:850px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .eyebrow{
+    font-family:var(--mono); color:var(--accent2); font-size:0.85rem;
+    letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;
+  }
+  h1{
+    font-size:clamp(2.4rem, 6vw, 4rem);
+    font-weight:700; line-height:1.1; margin-bottom:18px;
+    font-family:var(--sans);
+  }
+  h1 .hl{color:var(--accent);}
+  .hero p.lead{color:var(--muted); font-size:1.1rem; max-width:480px; margin-bottom:32px;}
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:0.9rem; padding:12px 22px;
+    border-radius:6px; text-decoration:none; transition:all .2s; border:1px solid var(--line);
+  }
+  .btn-primary{background:var(--accent); color:#0D1117; font-weight:700; border-color:var(--accent);}
+  .btn-primary:hover{box-shadow:0 0 0 3px rgba(126,231,135,0.25);}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent2); color:var(--accent2);}
+
+  /* terminal window */
+  .terminal{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px; padding:10px 14px;
+    border-bottom:1px solid var(--line); background:#10151c;
+  }
+  .term-dot{width:11px; height:11px; border-radius:50%;}
+  .term-bar .term-title{
+    margin-left:8px; font-family:var(--mono); font-size:0.75rem; color:var(--muted);
+  }
+  .term-body{padding:20px; font-family:var(--mono); font-size:0.88rem; min-height:220px;}
+  .term-body .line{margin-bottom:10px; color:var(--text);}
+  .term-body .prompt{color:var(--accent);}
+  .term-body .out{color:var(--muted); padding-left:0;}
+  .term-body .out .k{color:var(--accent2);}
+  .cursor{display:inline-block; width:8px; height:1.1em; background:var(--accent); animation:blink 1s step-end infinite; vertical-align:middle;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-head{margin-bottom:48px;}
+  .sec-num{font-family:var(--mono); color:var(--accent2); font-size:0.85rem; letter-spacing:2px;}
+  .sec-title{font-size:clamp(1.8rem,4vw,2.6rem); font-weight:700; margin-top:6px;}
+
+  /* ===== SKILLS ===== */
+  .skills-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  @media (max-width:700px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-card{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:10px; padding:28px;
+    transition:transform .2s, border-color .2s;
+  }
+  .skill-card:hover{transform:translateY(-4px); border-color:var(--accent);}
+  .skill-card.alt:hover{border-color:var(--accent2);}
+  .skill-card h3{font-family:var(--mono); font-size:1.05rem; margin-bottom:6px;}
+  .skill-card .sub{color:var(--muted); font-size:0.85rem; margin-bottom:18px;}
+  .tag-list{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:var(--mono); font-size:0.78rem; padding:5px 12px;
+    border:1px solid var(--line); border-radius:20px; color:var(--text);
+  }
+  .skill-card h3{color:var(--accent);}
+  .skill-card.alt h3{color:var(--accent2);}
+
+  /* ===== PROJECTS ===== */
+  .project-list{display:flex; flex-direction:column; gap:2px;}
+  .project{
+    display:grid; grid-template-columns:90px 1fr auto; gap:20px; align-items:baseline;
+    padding:24px 0; border-bottom:1px solid var(--line); transition:padding-left .2s;
+  }
+  .project:hover{padding-left:10px; border-color:var(--accent);}
+  .project .pnum{font-family:var(--mono); color:var(--muted); font-size:0.85rem;}
+  .project h4{font-size:1.15rem; margin-bottom:6px;}
+  .project p{color:var(--muted); font-size:0.92rem; max-width:520px;}
+  .project .ptags{font-family:var(--mono); font-size:0.78rem; color:var(--accent); text-align:right; white-space:nowrap;}
+  @media (max-width:700px){
+    .project{grid-template-columns:1fr; gap:6px;}
+    .project .ptags{text-align:left;}
+  }
+
+  /* ===== GRAPHIC GALLERY ===== */
+  .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:800px){ .gallery{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .gallery{grid-template-columns:1fr;} }
+  .gal-item{
+    aspect-ratio:4/3; border:1px dashed var(--line); border-radius:8px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; color:var(--muted); font-family:var(--mono); font-size:0.8rem;
+    transition:border-color .2s, color .2s;
+  }
+  .gal-item:hover{border-color:var(--accent2); color:var(--accent2);}
+  .gal-item svg{opacity:0.6; width:28px; height:28px;}
+
+  /* ===== CONTACT ===== */
+  .contact{text-align:center;}
+  .contact .sec-head{display:flex; flex-direction:column; align-items:center;}
+  .contact h2{font-size:clamp(2rem,5vw,3rem); margin-bottom:14px;}
+  .contact p{color:var(--muted); margin-bottom:32px;}
+  .contact-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+
+  footer{
+    text-align:center; padding:32px 6vw; color:var(--muted);
+    font-family:var(--mono); font-size:0.8rem; border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">patiphon<span>.dev</span></div>
+  <div class="nav-links">
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#graphic">graphic</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">// IT Support &amp; Graphic Design</div>
+      <h1>Hi, I'm Patiphon —<br>I build <span class="hl">interfaces</span><br>and design <span class="hl">visuals</span>.</h1>
+      <p class="lead">
+        จบไอที เคยฝึกงาน Frontend Developer ปัจจุบันสนใจงานที่ได้ใช้ทั้งสาย
+        Tech และ Graphic ไปพร้อมกัน
+      </p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-primary">ดูผลงาน</a>
+        <a href="#contact" class="btn btn-ghost">ติดต่อผม</a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="term-dot" style="background:#ff5f56;"></div>
+        <div class="term-dot" style="background:#ffbd2e;"></div>
+        <div class="term-dot" style="background:#27c93f;"></div>
+        <span class="term-title">patiphon@portfolio</span>
+      </div>
+      <div class="term-body">
+        <div class="line"><span class="prompt">$</span> whoami</div>
+        <div class="line out">Patiphon In-ngam — IT &amp; Design</div>
+        <div class="line"><span class="prompt">$</span> cat skills.txt</div>
+        <div class="line out">
+          <span class="k">frontend:</span> HTML, CSS, JavaScript<br>
+          <span class="k">design:</span> Photoshop, Illustrator, Canva, CapCut<br>
+          <span class="k">it_support:</span> Hardware, Network basics, Troubleshooting
+        </div>
+        <div class="line"><span class="prompt">$</span> status</div>
+        <div class="line out">เปิดรับงาน IT Support / Graphic Design</div>
+        <div class="line"><span class="prompt">$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head">
+    <div class="sec-num">01 / Skills</div>
+    <div class="sec-title">สิ่งที่ผมทำได้</div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Frontend &amp; IT</h3>
+      <div class="sub">จากประสบการณ์ฝึกงานและการเรียนสายไอที</div>
+      <div class="tag-list">
+        <span class="tag">HTML / CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Computer Hardware</span>
+        <span class="tag">Network Basics</span>
+        <span class="tag">Troubleshooting</span>
+        <span class="tag">Printer / Office Setup</span>
+      </div>
+    </div>
+    <div class="skill-card alt">
+      <h3>Graphic &amp; Video</h3>
+      <div class="sub">สำหรับสื่อออนไลน์และสื่อประชาสัมพันธ์</div>
+      <div class="tag-list">
+        <span class="tag">Photoshop</span>
+        <span class="tag">Illustrator</span>
+        <span class="tag">Canva</span>
+        <span class="tag">CapCut</span>
+        <span class="tag">Social Media Banner</span>
+        <span class="tag">Poster Design</span>
+        <span class="tag">Short-form Video</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head">
+    <div class="sec-num">02 / Projects</div>
+    <div class="sec-title">ผลงานด้าน Dev / IT</div>
+  </div>
+  <div class="project-list">
+    <div class="project">
+      <div class="pnum">01</div>
+      <div>
+        <h4>เว็บพอร์ตโฟลิโอนี้</h4>
+        <p>เขียนด้วย HTML/CSS ตั้งแต่ต้น ออกแบบเอง ตั้งใจให้เป็นทั้งผลงานด้าน Dev และ Design ในชิ้นเดียว</p>
+      </div>
+      <div class="ptags">HTML · CSS</div>
+    </div>
+    <div class="project">
+      <div class="pnum">02</div>
+      <div>
+        <h4>ฝึกงาน Frontend Developer — เว็บไซต์ข่าว (Nation Group)</h4>
+        <p>แปลงดีไซน์จาก Figma เป็นเว็บไซต์จริงด้วย Next.js พัฒนาหน้าเว็บหมวดข่าวต่างๆ (การเมือง กีฬา ไลฟ์สไตล์ บันเทิง ติดต่อ) จัดองค์ประกอบด้วย Styled Components และทำ Layout ด้วย CSS Grid ให้รองรับ Laptop, PC และ Tablet</p>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <img src="assets/internship-1.png" alt="Nation Group news website" style="width:180px; border:1px solid var(--line); border-radius:6px;">
+          <img src="assets/internship-2.png" alt="Nation Group website footer and lottery section" style="width:180px; border:1px solid var(--line); border-radius:6px;">
+        </div>
+      </div>
+      <div class="ptags">Next.js · CSS Grid</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GRAPHIC GALLERY -->
+<section id="graphic">
+  <div class="sec-head">
+    <div class="sec-num">03 / Graphic &amp; Video</div>
+    <div class="sec-title">ผลงานออกแบบ</div>
+  </div>
+  <div class="gallery">
+    <div class="gal-item" style="border-style:solid; padding:8px;">
+      <img src="assets/logo.png" alt="Stickmanwhat? channel logo" style="max-width:100%; max-height:100%; object-fit:contain;">
+    </div>
+    <div class="gal-item" style="border-style:solid; padding:8px;">
+      <img src="assets/social-post-1.png" alt="Stickmanwhat? Facebook post" style="max-width:100%; max-height:100%; object-fit:contain;">
+    </div>
+    <div class="gal-item" style="border-style:solid; padding:0; overflow:hidden;">
+      <iframe style="width:100%; height:100%; display:block;" src="https://www.youtube.com/embed/ORfTt1ulqvc" title="เมื่อชีวิตมัน Stick — ก็เลยต้องถามว่า… What?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="sec-head">
+    <div class="sec-num">04 / Contact</div>
+    <h2>มาคุยกันได้เลยครับ</h2>
+    <p>เปิดรับโอกาสงาน IT Support &amp; Graphic Design — ติดต่อผมผ่านช่องทางด้านล่าง</p>
+    <div class="contact-links">
+      <a href="mailto:your-email@example.com" class="btn btn-primary">Email</a>
+      <a href="#" class="btn btn-ghost">LINE</a>
+      <a href="#" class="btn btn-ghost">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Patiphon In-ngam — built with HTML &amp; CSS
+</footer>
+
+</body>
+</html>
