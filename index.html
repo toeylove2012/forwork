@@ -145,6 +145,14 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:8px; color:var(--muted); font-family:var(--mono); font-size:0.8rem;
     transition:border-color .2s, color .2s;
+    overflow:hidden;
+  }
+  .gal-item img, .gal-item iframe{
+    transition:transform .35s ease;
+  }
+  .gal-item:hover img{
+    transform:scale(1.08);
+    cursor:zoom-in;
   }
   .gal-item:hover{border-color:var(--accent2); color:var(--accent2);}
   .gal-item svg{opacity:0.6; width:28px; height:28px;}
@@ -269,8 +277,12 @@
         <h4>ฝึกงาน Frontend Developer — เว็บไซต์ข่าว (Nation Group)</h4>
         <p>แปลงดีไซน์จาก Figma เป็นเว็บไซต์จริงด้วย Next.js พัฒนาหน้าเว็บหมวดข่าวต่างๆ (การเมือง กีฬา ไลฟ์สไตล์ บันเทิง ติดต่อ) จัดองค์ประกอบด้วย Styled Components และทำ Layout ด้วย CSS Grid ให้รองรับ Laptop, PC และ Tablet</p>
         <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
-          <img src="assets/internship-1.png" alt="Nation Group news website" style="width:180px; border:1px solid var(--line); border-radius:6px;">
-          <img src="assets/internship-2.png" alt="Nation Group website footer and lottery section" style="width:180px; border:1px solid var(--line); border-radius:6px;">
+          <div style="width:180px; overflow:hidden; border:1px solid var(--line); border-radius:6px;">
+            <img src="assets/internship-1.png" alt="Nation Group news website" style="width:100%; display:block; transition:transform .35s ease; cursor:zoom-in;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <div style="width:180px; overflow:hidden; border:1px solid var(--line); border-radius:6px;">
+            <img src="assets/internship-2.png" alt="Nation Group website footer and lottery section" style="width:100%; display:block; transition:transform .35s ease; cursor:zoom-in;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
         </div>
       </div>
       <div class="ptags">Next.js · CSS Grid</div>
